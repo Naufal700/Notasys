@@ -3,14 +3,17 @@
 namespace App\Models\Master;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\LogsActivityOnModel;
 
 class Klien extends Model
 {
+    use LogsActivityOnModel;
+
     protected $table = 'klien';
 
     protected $fillable = [
         'nama',
-        'jenis', // perorangan / badan_hukum
+        'jenis',
         'jenis_identitas_id',
         'nomor_identitas',
         'npwp',

@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-// Dashboard
-Route::get('/dashboard', [AuthController::class, 'dashboard'])
+use App\Http\Controllers\DashboardController;
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard');
+
 
 // Login
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -55,3 +57,9 @@ Route::resource('template_dokumen', TemplateDokumenController::class);
 // Route tambahan untuk download file template
 Route::get('template_dokumen/{id}/download', [TemplateDokumenController::class, 'download'])
     ->name('template_dokumen.download');
+// Route Bank
+use App\Http\Controllers\Master\BankController;
+
+Route::prefix('master')->middleware(['auth'])->group(function () {
+    Route::resource('bank', BankController::class);
+});

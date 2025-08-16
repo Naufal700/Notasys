@@ -13,9 +13,26 @@ class DashboardController extends Controller
 
     public function index()
     {
-        // Anda bisa menambahkan logika khusus dashboard di sini
+        // Ambil data user
+        $user = auth()->user();
+
+        // Total klien
+        $totalKlien = \App\Models\Master\Klien::count();
+
+        // Klien baru hari ini
+        $klienHariIni = \App\Models\Master\Klien::whereDate('created_at', today())->count();
+
+        // Ambil 10 log aktivitas terbaru
+        $activities = \App\Models\ActivityLog::with('user')
+            ->latest()
+            ->take(10)
+            ->get();
+
         return view('dashboard', [
-            'user' => auth()->user()
+            'user' => $user,
+            'totalKlien' => $totalKlien,
+            'klienHariIni' => $klienHariIni,
+            'activities' => $activities
         ]);
     }
 }

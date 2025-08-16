@@ -52,350 +52,463 @@
 
     <!-- Menu -->
     <nav class="mt-2 text-blue-100 text-sm font-medium overflow-y-auto h-[calc(100vh-220px)]">
-        <!-- Dashboard -->
-        <a href="{{ route('dashboard') }}" 
-           @mouseenter="hoveredMenu = 'dashboard'"
-           @mouseleave="hoveredMenu = null"
-           :class="{
-             'bg-blue-700 text-white': activeMenu === 'dashboard',
-             'bg-blue-800': hoveredMenu === 'dashboard' && activeMenu !== 'dashboard'
-           }"
-           class="flex items-center p-3 mx-2 rounded-lg transition-all duration-200 group">
-            <div class="relative">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
-                <span x-show="sidebarOpen" class="ml-3">Dashboard</span>
-                <span x-show="sidebarOpen && activeMenu === 'dashboard'" class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
-            </div>
-            <span x-show="!sidebarOpen" class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">Dashboard</span>
-        </a>
+       <!-- Dashboard -->
+<a href="{{ route('dashboard') }}" 
+   @mouseenter="hoveredMenu = 'dashboard'"
+   @mouseleave="hoveredMenu = null"
+   :class="{
+     'bg-blue-700 text-white': activeMenu === 'dashboard',
+     'bg-blue-800': hoveredMenu === 'dashboard' && activeMenu !== 'dashboard'
+   }"
+   class="flex items-center p-3 mx-2 rounded-lg transition-all duration-200 group">
 
-        <!-- Create Document/Deed (New Section) -->
-        <a href="#" 
-           @mouseenter="hoveredMenu = 'create'"
-           @mouseleave="hoveredMenu = null"
-           :class="{
-             'bg-blue-700 text-white': activeMenu === 'create',
-             'bg-blue-800': hoveredMenu === 'create' && activeMenu !== 'create'
-           }"
-           class="flex items-center p-3 mx-2 rounded-lg transition-all duration-200 group mt-1">
-            <div class="relative">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <span x-show="sidebarOpen" class="ml-3">Buat Dokumen/Akta</span>
-                <span x-show="sidebarOpen && activeMenu === 'create'" class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
-            </div>
-            <span x-show="!sidebarOpen" class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">Buat Dokumen</span>
-        </a>
+    <!-- Icon -->
+    <div class="relative flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="h-5 w-5 flex-shrink-0" 
+             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
 
-        <!-- Master Data -->
-        <div>
-            <button @click="nestedOpen === 1 ? nestedOpen = null : nestedOpen = 1" 
-                    @mouseenter="hoveredMenu = 'master'"
-                    @mouseleave="hoveredMenu = null"
-                    :class="{
-                      'bg-blue-700 text-white': nestedOpen === 1,
-                      'bg-blue-800': hoveredMenu === 'master' && nestedOpen !== 1
-                    }"
-                    class="flex items-center p-3 mx-2 rounded-lg w-full transition-all duration-200 group mt-1">
-                <div class="relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                    </svg>
-                    <span x-show="sidebarOpen" class="ml-3">Master Data</span>
-                    <span x-show="sidebarOpen && nestedOpen === 1" class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
-                </div>
-                <svg x-show="sidebarOpen" :class="nestedOpen===1?'rotate-90 text-blue-300':''" 
-                     class="ml-auto w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-                <span x-show="!sidebarOpen" class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">Master Data</span>
-            </button>
-            <div x-show="nestedOpen===1 && sidebarOpen" x-collapse class="pl-8 space-y-1 mt-1">
-                <a href="{{ route('master.klien.index') }}" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Klien
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Staff
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Users
-                </a>
-                <a href="{{ route('master.jenis-akta.index') }}" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Jenis Akta
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Bank / Rekening
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Supplier
-                </a>
-                <a href="{{ route('template_dokumen.index') }}" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Template Dokumen
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Kategori Biaya
-                </a>
-            </div>
-        </div>
+        <!-- Indicator strip -->
+        <span x-show="sidebarOpen && activeMenu === 'dashboard'" 
+              class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
+    </div>
 
-        <!-- Dokumen & Akta -->
-        <div>
-            <button @click="nestedOpen === 2 ? nestedOpen = null : nestedOpen = 2" 
-                    @mouseenter="hoveredMenu = 'dokumen'"
-                    @mouseleave="hoveredMenu = null"
-                    :class="{
-                      'bg-blue-700 text-white': nestedOpen === 2,
-                      'bg-blue-800': hoveredMenu === 'dokumen' && nestedOpen !== 2
-                    }"
-                    class="flex items-center p-3 mx-2 rounded-lg w-full transition-all duration-200 group mt-1">
-                <div class="relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    <span x-show="sidebarOpen" class="ml-3">Dokumen / Akta</span>
-                    <span x-show="sidebarOpen && nestedOpen === 2" class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
-                </div>
-                <svg x-show="sidebarOpen" :class="nestedOpen===2?'rotate-90 text-blue-300':''" 
-                     class="ml-auto w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-                <span x-show="!sidebarOpen" class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">Dokumen</span>
-            </button>
-            <div x-show="nestedOpen===2 && sidebarOpen" x-collapse class="pl-8 space-y-1 mt-1">
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Dokumen Baru
-                    <span class="ml-auto px-2 py-0.5 bg-blue-600 text-blue-100 text-xs rounded-full">New</span>
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Status Akta
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Arsip Dokumen
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Notifikasi / Reminder
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Dokumen Masuk
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Dokumen Keluar
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Dokumen Pending
-                </a>
-            </div>
-        </div>
+    <!-- Label text -->
+    <span x-show="sidebarOpen" class="ml-3">Dashboard</span>
+
+    <!-- Tooltip saat sidebar tertutup -->
+    <span x-show="!sidebarOpen" 
+          class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">
+          Dashboard
+    </span>
+</a>
+        
+              <!-- Master Data button -->
+  <button 
+    @click="nestedOpen === 1 ? nestedOpen = null : nestedOpen = 1" 
+    @mouseenter="hoveredMenu = 'master'"
+    @mouseleave="hoveredMenu = null"
+    :class="{
+      'bg-blue-700 text-white': nestedOpen === 1,
+      'bg-blue-800': hoveredMenu === 'master' && nestedOpen !== 1
+    }"
+    class="flex items-center p-3 mx-2 rounded-lg w-full transition-all duration-200 group mt-1 relative">
+
+    <!-- Icon + Active Indicator -->
+    <div class="relative flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" 
+           class="h-5 w-5 flex-shrink-0" 
+           fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+      </svg>
+      <span x-show="sidebarOpen && nestedOpen === 1" 
+            class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
+    </div>
+
+    <!-- Label -->
+    <span x-show="sidebarOpen" class="ml-3">Master Data</span>
+
+    <!-- Dropdown Arrow -->
+    <svg x-show="sidebarOpen" 
+         :class="nestedOpen===1 ? 'rotate-90 text-blue-300' : ''" 
+         class="ml-auto w-4 h-4 transition-transform duration-200" 
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+    </svg>
+
+    <!-- Tooltip saat sidebar collapse -->
+    <span x-show="!sidebarOpen" 
+          class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">
+      Master Data
+    </span>
+  </button>
+
+  <!-- Submenu -->
+  <div x-show="nestedOpen===1 && sidebarOpen" x-collapse class="pl-8 space-y-1 mt-1">
+    <a href="{{ route('master.klien.index') }}" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span> Klien
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span> Staff
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span> Users
+    </a>
+    <a href="{{ route('master.jenis-akta.index') }}" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span> Jenis Akta
+    </a>
+    <a href="{{ route('bank.index') }}" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span> Bank / Rekening
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span> Supplier
+    </a>
+    <a href="{{ route('template_dokumen.index') }}" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span> Template Dokumen
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span> Kategori Biaya
+    </a>
+  </div>
+</div>
+        <!-- Dokumen / Akta button -->
+  <button 
+    @click="nestedOpen === 2 ? nestedOpen = null : nestedOpen = 2" 
+    @mouseenter="hoveredMenu = 'dokumen'"
+    @mouseleave="hoveredMenu = null"
+    :class="{
+      'bg-blue-700 text-white': nestedOpen === 2,
+      'bg-blue-800': hoveredMenu === 'dokumen' && nestedOpen !== 2
+    }"
+    class="flex items-center p-3 mx-2 rounded-lg w-full transition-all duration-200 group mt-1 relative">
+
+    <!-- Icon + Active Indicator -->
+    <div class="relative flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" 
+           class="h-5 w-5 flex-shrink-0" 
+           fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+      <span x-show="sidebarOpen && nestedOpen === 2" 
+            class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
+    </div>
+
+    <!-- Label -->
+    <span x-show="sidebarOpen" class="ml-3">Dokumen / Akta</span>
+
+    <!-- Dropdown Arrow -->
+    <svg x-show="sidebarOpen" 
+         :class="nestedOpen===2 ? 'rotate-90 text-blue-300' : ''" 
+         class="ml-auto w-4 h-4 transition-transform duration-200" 
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+    </svg>
+
+    <!-- Tooltip saat sidebar collapse -->
+    <span x-show="!sidebarOpen" 
+          class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">
+      Dokumen
+    </span>
+  </button>
+
+  <!-- Submenu -->
+  <div x-show="nestedOpen===2 && sidebarOpen" x-collapse class="pl-8 space-y-1 mt-1">
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Dokumen Baru
+      <span class="ml-auto px-2 py-0.5 bg-blue-600 text-blue-100 text-xs rounded-full">New</span>
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Status Akta
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Arsip Dokumen
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Notifikasi / Reminder
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Dokumen Masuk
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Dokumen Keluar
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Dokumen Pending
+    </a>
+  </div>
+</div>
+
 
         <!-- Transaksi -->
-        <div>
-            <button @click="nestedOpen === 3 ? nestedOpen = null : nestedOpen = 3" 
-                    @mouseenter="hoveredMenu = 'transaksi'"
-                    @mouseleave="hoveredMenu = null"
-                    :class="{
-                      'bg-blue-700 text-white': nestedOpen === 3,
-                      'bg-blue-800': hoveredMenu === 'transaksi' && nestedOpen !== 3
-                    }"
-                    class="flex items-center p-3 mx-2 rounded-lg w-full transition-all duration-200 group mt-1">
-                <div class="relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                    <span x-show="sidebarOpen" class="ml-3">Transaksi</span>
-                    <span x-show="sidebarOpen && nestedOpen === 3" class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
-                </div>
-                <svg x-show="sidebarOpen" :class="nestedOpen===3?'rotate-90 text-blue-300':''" 
-                     class="ml-auto w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-                <span x-show="!sidebarOpen" class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">Transaksi</span>
-            </button>
-            <div x-show="nestedOpen===3 && sidebarOpen" x-collapse class="pl-8 space-y-1 mt-1">
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Kas & Bank
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Pendapatan
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Pengeluaran
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Invoice
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Pembayaran
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Rekonsiliasi Bank
-                </a>
-            </div>
-        </div>
+       <div>
+  <!-- Transaksi Button -->
+  <button 
+    @click="nestedOpen === 3 ? nestedOpen = null : nestedOpen = 3" 
+    @mouseenter="hoveredMenu = 'transaksi'"
+    @mouseleave="hoveredMenu = null"
+    :class="{
+      'bg-blue-700 text-white': nestedOpen === 3,
+      'bg-blue-800': hoveredMenu === 'transaksi' && nestedOpen !== 3
+    }"
+    class="flex items-center p-3 mx-2 rounded-lg w-full transition-all duration-200 group mt-1 relative">
+
+    <!-- Icon + Active Indicator -->
+    <div class="relative flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" 
+           class="h-5 w-5 flex-shrink-0" 
+           fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+      </svg>
+      <span x-show="sidebarOpen && nestedOpen === 3" 
+            class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
+    </div>
+
+    <!-- Label -->
+    <span x-show="sidebarOpen" class="ml-3">Transaksi</span>
+
+    <!-- Dropdown Arrow -->
+    <svg x-show="sidebarOpen" 
+         :class="nestedOpen===3 ? 'rotate-90 text-blue-300' : ''" 
+         class="ml-auto w-4 h-4 transition-transform duration-200" 
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+    </svg>
+
+    <!-- Tooltip saat sidebar collapse -->
+    <span x-show="!sidebarOpen" 
+          class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">
+      Transaksi
+    </span>
+  </button>
+
+  <!-- Submenu -->
+  <div x-show="nestedOpen===3 && sidebarOpen" x-collapse class="pl-8 space-y-1 mt-1">
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Kas & Bank
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Pendapatan
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Pengeluaran
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Invoice
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Pembayaran
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Rekonsiliasi Bank
+    </a>
+  </div>
+</div>
+
 
         <!-- Laporan -->
         <div>
-            <button @click="nestedOpen === 4 ? nestedOpen = null : nestedOpen = 4" 
-                    @mouseenter="hoveredMenu = 'laporan'"
-                    @mouseleave="hoveredMenu = null"
-                    :class="{
-                      'bg-blue-700 text-white': nestedOpen === 4,
-                      'bg-blue-800': hoveredMenu === 'laporan' && nestedOpen !== 4
-                    }"
-                    class="flex items-center p-3 mx-2 rounded-lg w-full transition-all duration-200 group mt-1">
-                <div class="relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    <span x-show="sidebarOpen" class="ml-3">Laporan</span>
-                    <span x-show="sidebarOpen && nestedOpen === 4" class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
-                </div>
-                <svg x-show="sidebarOpen" :class="nestedOpen===4?'rotate-90 text-blue-300':''" 
-                     class="ml-auto w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-                <span x-show="!sidebarOpen" class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">Laporan</span>
-            </button>
-            <div x-show="nestedOpen===4 && sidebarOpen" x-collapse class="pl-8 space-y-1 mt-1">
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Laporan Transaksi
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Laporan Akta
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Laporan Keuangan
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Laporan Produktivitas
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Laporan Pajak
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Laporan Custom
-                </a>
-            </div>
-        </div>
+  <!-- Laporan Button -->
+  <button 
+    @click="nestedOpen === 4 ? nestedOpen = null : nestedOpen = 4" 
+    @mouseenter="hoveredMenu = 'laporan'"
+    @mouseleave="hoveredMenu = null"
+    :class="{
+      'bg-blue-700 text-white': nestedOpen === 4,
+      'bg-blue-800': hoveredMenu === 'laporan' && nestedOpen !== 4
+    }"
+    class="flex items-center p-3 mx-2 rounded-lg w-full transition-all duration-200 group mt-1 relative">
+
+    <!-- Icon + Active Indicator -->
+    <div class="relative flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" 
+           class="h-5 w-5 flex-shrink-0" 
+           fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+      <!-- Indikator aktif -->
+      <span x-show="sidebarOpen && nestedOpen === 4" 
+            class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
+    </div>
+
+    <!-- Label -->
+    <span x-show="sidebarOpen" class="ml-3">Laporan</span>
+
+    <!-- Dropdown Arrow -->
+    <svg x-show="sidebarOpen" 
+         :class="nestedOpen===4 ? 'rotate-90 text-blue-300' : ''" 
+         class="ml-auto w-4 h-4 transition-transform duration-200" 
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+    </svg>
+
+    <!-- Tooltip saat sidebar collapse -->
+    <span x-show="!sidebarOpen" 
+          class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">
+      Laporan
+    </span>
+  </button>
+
+  <!-- Submenu -->
+  <div x-show="nestedOpen===4 && sidebarOpen" x-collapse class="pl-8 space-y-1 mt-1">
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Laporan Transaksi
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Laporan Akta
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Laporan Keuangan
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Laporan Produktivitas
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Laporan Pajak
+    </a>
+    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+      Laporan Custom
+    </a>
+  </div>
+</div>
+<!-- e-Filing (Tanpa Bridging) -->
+
+
 
         <!-- Kalender & Jadwal -->
-        <a href="#" 
-           @mouseenter="hoveredMenu = 'kalender'"
-           @mouseleave="hoveredMenu = null"
-           :class="{
-             'bg-blue-700 text-white': activeMenu === 'kalender',
-             'bg-blue-800': hoveredMenu === 'kalender' && activeMenu !== 'kalender'
-           }"
-           class="flex items-center p-3 mx-2 rounded-lg transition-all duration-200 group mt-1">
-            <div class="relative">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span x-show="sidebarOpen" class="ml-3">Kalender</span>
-                <span x-show="sidebarOpen && activeMenu === 'kalender'" class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
-            </div>
-            <span x-show="!sidebarOpen" class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">Kalender</span>
-        </a>
+        <a href="#"
+   @click="activeMenu = 'kalender'"
+   @mouseenter="hoveredMenu = 'kalender'"
+   @mouseleave="hoveredMenu = null"
+   :class="{
+     'bg-blue-700 text-white': activeMenu === 'kalender',
+     'bg-blue-800': hoveredMenu === 'kalender' && activeMenu !== 'kalender'
+   }"
+   class="flex items-center p-3 mx-2 rounded-lg transition-all duration-200 group mt-1 relative">
 
+  <!-- Ikon + indikator aktif -->
+  <div class="relative flex items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" 
+         class="h-5 w-5 flex-shrink-0" 
+         fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
+
+    <!-- indikator aktif -->
+    <span x-show="sidebarOpen && activeMenu === 'kalender'" 
+          class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
+  </div>
+
+  <!-- Label kalau sidebar terbuka -->
+  <span x-show="sidebarOpen" class="ml-3">Kalender</span>
+
+  <!-- Tooltip kalau sidebar ditutup -->
+  <span x-show="!sidebarOpen" 
+        class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">
+    Kalender
+  </span>
+</a>
         <!-- Pengaturan -->
-        <div>
-            <button @click="nestedOpen === 5 ? nestedOpen = null : nestedOpen = 5" 
-                    @mouseenter="hoveredMenu = 'pengaturan'"
-                    @mouseleave="hoveredMenu = null"
-                    :class="{
-                      'bg-blue-700 text-white': nestedOpen === 5,
-                      'bg-blue-800': hoveredMenu === 'pengaturan' && nestedOpen !== 5
-                    }"
-                    class="flex items-center p-3 mx-2 rounded-lg w-full transition-all duration-200 group mt-1">
-                <div class="relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span x-show="sidebarOpen" class="ml-3">Pengaturan</span>
-                    <span x-show="sidebarOpen && nestedOpen === 5" class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
-                </div>
-                <svg x-show="sidebarOpen" :class="nestedOpen===5?'rotate-90 text-blue-300':''" 
-                     class="ml-auto w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-                <span x-show="!sidebarOpen" class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">Pengaturan</span>
-            </button>
-            <div x-show="nestedOpen===5 && sidebarOpen" x-collapse class="pl-8 space-y-1 mt-1">
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Profil Perusahaan
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Pengguna & Role
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Backup & Restore
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Integrasi API
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Template Email
-                </a>
-                <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-                    <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                    Audit Log
-                </a>
-            </div>
-        </div>
+      <div>
+  <!-- Tombol Utama -->
+  <button @click="nestedOpen === 5 ? nestedOpen = null : nestedOpen = 5" 
+          @mouseenter="hoveredMenu = 'pengaturan'"
+          @mouseleave="hoveredMenu = null"
+          :class="{
+            'bg-blue-700 text-white': nestedOpen === 5,
+            'bg-blue-800': hoveredMenu === 'pengaturan' && nestedOpen !== 5
+          }"
+          class="flex items-center p-3 mx-2 rounded-lg w-full transition-all duration-200 group mt-1 relative">
+      
+      <!-- Ikon + Label -->
+      <div class="relative flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="h-5 w-5 flex-shrink-0" fill="none" 
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <span x-show="sidebarOpen" class="ml-3">Pengaturan</span>
 
+        <!-- Indikator aktif -->
+        <span x-show="sidebarOpen && nestedOpen === 5" 
+              class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
+      </div>
+
+      <!-- Panah Expand -->
+      <svg x-show="sidebarOpen" 
+           :class="nestedOpen===5?'rotate-90 text-blue-300':''" 
+           class="ml-auto w-4 h-4 transition-transform duration-200" 
+           fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+
+      <!-- Tooltip kalau sidebar tertutup -->
+      <span x-show="!sidebarOpen" 
+            class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">
+        Pengaturan
+      </span>
+  </button>
+
+  <!-- Submenu -->
+  <div x-show="nestedOpen===5 && sidebarOpen" x-collapse class="pl-8 space-y-1 mt-1">
+    <template x-for="item in [
+      'Profil Perusahaan',
+      'Pengguna & Role',
+      'Backup & Restore',
+      'Integrasi API',
+      'Template Email',
+      'Audit Log'
+    ]" :key="item">
+      <a href="#" 
+         class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
+        <span x-text="item"></span>
+      </a>
+    </template>
+  </div>
+</div>
         <!-- Help & Support -->
-        <a href="#" 
-           @mouseenter="hoveredMenu = 'help'"
-           @mouseleave="hoveredMenu = null"
-           :class="{
-             'bg-blue-700 text-white': activeMenu === 'help',
-             'bg-blue-800': hoveredMenu === 'help' && activeMenu !== 'help'
-           }"
-           class="flex items-center p-3 mx-2 rounded-lg transition-all duration-200 group mt-1">
-            <div class="relative">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span x-show="sidebarOpen" class="ml-3">Bantuan</span>
-                <span x-show="sidebarOpen && activeMenu === 'help'" class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
-            </div>
-            <span x-show="!sidebarOpen" class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">Bantuan</span>
-        </a>
+      <a href="#" 
+   @mouseenter="hoveredMenu = 'help'"
+   @mouseleave="hoveredMenu = null"
+   @click="activeMenu = 'help'"
+   :class="{
+     'bg-blue-700 text-white': activeMenu === 'help',
+     'bg-blue-800': hoveredMenu === 'help' && activeMenu !== 'help'
+   }"
+   class="flex items-center p-3 mx-2 rounded-lg transition-all duration-200 group mt-1 relative">
+    
+    <!-- Ikon + Label -->
+    <div class="relative flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="h-5 w-5 flex-shrink-0" fill="none" 
+             viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span x-show="sidebarOpen" class="ml-3">Bantuan</span>
+
+        <!-- Indikator aktif -->
+        <span x-show="sidebarOpen && activeMenu === 'help'" 
+              class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-400 rounded-full -ml-2"></span>
+    </div>
+
+    <!-- Tooltip kalau sidebar ditutup -->
+    <span x-show="!sidebarOpen" 
+          class="absolute left-full ml-2 px-2 py-1 bg-blue-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-lg">
+        Bantuan
+    </span>
+</a>
+
     </nav>
 
     <!-- Collapsed bottom menu -->

@@ -85,15 +85,19 @@
         <!-- Page Content -->
         <main class="flex-1 p-4 sm:p-6">
             <!-- Page Header -->
-            <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div>
-                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">@yield('page-title')</h1>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">@yield('page-description')</p>
-                </div>
-                <div class="flex items-center space-x-2">
-                    @yield('page-actions')
-                </div>
-            </div>
+            <!-- Page Header -->
+<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="relative group">
+        <h1 class="text-2xl md:text-3xl font-extrabold text-indigo-700 dark:text-indigo-200 tracking-wide transition-colors duration-500">
+            @yield('page-title')
+        </h1>
+        <div class="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-indigo-400 via-indigo-600 to-indigo-700 dark:from-indigo-300 dark:via-indigo-400 dark:to-indigo-200 rounded-full group-hover:w-full transition-all duration-500"></div>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">@yield('page-description')</p>
+    </div>
+    <div class="flex items-center space-x-2">
+        @yield('page-actions')
+    </div>
+</div>
             
             <!-- Page Content -->
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
@@ -151,6 +155,27 @@
          class="fixed inset-0 bg-black/30 z-50 flex items-center justify-center">
         <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
     </div>
+<!-- Global Spinner -->
+<div x-show="$store.loading" x-transition.opacity 
+     class="fixed inset-0 bg-black/30 dark:bg-gray-900/40 z-50 flex items-center justify-center backdrop-blur-md transition-opacity duration-500">
+    <div class="relative w-16 h-16">
+        <!-- Outer glow -->
+        <div class="absolute inset-0 rounded-full animate-ping bg-gradient-to-r from-indigo-400 via-indigo-600 to-indigo-700 opacity-30"></div>
+        <!-- Spinner -->
+        <div class="relative rounded-full w-16 h-16 border-4 border-t-4 border-indigo-500 border-t-indigo-300 animate-spin-slow"></div>
+    </div>
+</div>
+
+<style>
+    /* Custom slow spin animation */
+    @keyframes spin-slow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    .animate-spin-slow {
+        animation: spin-slow 2.5s linear infinite;
+    }
+</style>
 
     <script>
         // Global store for loading state

@@ -3,56 +3,80 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
-use App\Models\Master\Bank;
 use Illuminate\Http\Request;
+use App\Models\Master\Bank;
 
 class BankController extends Controller
 {
+    /**
+     * Tampilkan daftar bank
+     */
     public function index()
     {
-        return response()->json(Bank::orderBy('nama_bank', 'asc')->get());
+        $banks = Bank::orderBy('nama_bank')->get();
+        return view('master.bank.index', compact('banks'));
     }
 
+    /**
+     * Tampilkan form tambah bank
+     */
+    public function create()
+    {
+        return view('master.bank.create');
+    }
+
+    /**
+     * Simpan data bank baru
+     */
     public function store(Request $request)
     {
         $request->validate([
-            'nama_bank'      => 'required|string|max:255',
-            'kode_bank'      => 'nullable|string|max:50',
-            'alamat_cabang'  => 'nullable|string',
+            'nama_bank' => 'required|string|max:255',
+            'kode_bank' => 'nullable|string|max:50|unique:bank,kode_bank',
+            'nomor_rekening' => 'nullable|string|max:50',
+            'nama_pemilik' => 'nullable|string|max:255',
+            'aktif' => 'boolean',
+            'keterangan' => 'nullable|string',
         ]);
 
-        $data = Bank::create($request->all());
-        return response()->json([
-            'message' => 'Bank berhasil ditambahkan',
-            'data'    => $data
-        ], 201);
+        Bank::create($request->all());
+
+        return redirect()->route('bank.index')->with('success', 'Bank berhasil ditambahkan');
     }
 
-    public function show($id)
+    /**
+     * Tampilkan form edit bank
+     */
+    public function edit(Bank $bank)
     {
-        return response()->json(Bank::findOrFail($id));
+        return view('master.bank.edit', compact('bank'));
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Update data bank
+     */
+    public function update(Request $request, Bank $bank)
     {
-        $bank = Bank::findOrFail($id);
-
         $request->validate([
-            'nama_bank'      => 'required|string|max:255',
-            'kode_bank'      => 'nullable|string|max:50',
-            'alamat_cabang'  => 'nullable|string',
+            'nama_bank' => 'required|string|max:255',
+            'kode_bank' => 'nullable|string|max:50|unique:bank,kode_bank,' . $bank->id,
+            'nomor_rekening' => 'nullable|string|max:50',
+            'nama_pemilik' => 'nullable|string|max:255',
+            'aktif' => 'boolean',
+            'keterangan' => 'nullable|string',
         ]);
 
         $bank->update($request->all());
-        return response()->json([
-            'message' => 'Bank berhasil diperbarui',
-            'data'    => $bank
-        ]);
+
+        return redirect()->route('bank.index')->with('success', 'Bank berhasil diperbarui');
     }
 
-    public function destroy($id)
+    /**
+     * Hapus bank
+     */
+    public function destroy(Bank $bank)
     {
-        Bank::findOrFail($id)->delete();
-        return response()->json(['message' => 'Bank berhasil dihapus']);
+        $bank->delete();
+        return redirect()->route('bank.index')->with('success', 'Bank berhasil dihapus');
     }
 }

@@ -5,8 +5,8 @@
 @section('content')
 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
 
-    <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
-        <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-6">Edit Jenis Akta</h2>
+    <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
+        {{-- <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-6">Edit Jenis Akta</h2> --}}
 
         <form action="{{ route('master.jenis-akta.update', $jenisAkta->id) }}" method="POST" class="space-y-5">
             @csrf

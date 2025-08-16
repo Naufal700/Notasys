@@ -14,14 +14,14 @@
 
     <!-- Header Action Buttons -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 space-y-2 sm:space-y-0">
-        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Daftar Jenis Akta</h2>
+        {{-- <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Daftar Jenis Akta</h2> --}}
         <a href="{{ route('master.jenis-akta.create') }}" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg shadow">Tambah Jenis Akta</a>
     </div>
 
     <!-- Table -->
-    <div class="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead class="bg-gray-50 dark:bg-gray-700">
+    <div class="overflow-x-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 table-auto">
+        <thead class="bg-gray-50 dark:bg-gray-700">
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">#</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Nama Akta</th>

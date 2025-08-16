@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Template Dokumen</h2>
+        {{-- <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Template Dokumen</h2> --}}
         <a href="{{ route('template_dokumen.create') }}" 
            class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-xl shadow-lg">
            Tambah Template
@@ -16,9 +16,9 @@
         <div class="bg-green-100 text-green-800 p-3 rounded mb-4">{{ session('success') }}</div>
     @endif
 
-    <div class="overflow-x-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead class="bg-gray-50 dark:bg-gray-700">
+    <div class="overflow-x-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 table-auto">
+        <thead class="bg-gray-50 dark:bg-gray-700">
                 <tr>
                     <th class="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-200">#</th>
                     <th class="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-200">Nama Template</th>

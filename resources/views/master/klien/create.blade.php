@@ -5,11 +5,14 @@
 @section('content')
 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
 
-    <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
-
-        <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-6">
+   <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
+    
+    {{-- Header dengan garis bawah --}}
+    <div class="mb-6 pb-2 border-b border-gray-300 dark:border-gray-600">
+        {{-- <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">
             {{ isset($klien) ? 'Edit Klien' : 'Tambah Klien' }}
-        </h2>
+        </h2> --}}
+    {{-- </div> --}}
 
         <form action="{{ isset($klien) ? route('master.klien.update', $klien->id) : route('master.klien.store') }}" method="POST" class="space-y-5">
             @csrf

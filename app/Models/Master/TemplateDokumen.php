@@ -5,10 +5,11 @@ namespace App\Models\Master;
 use App\Models\Master\JenisAkta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\LogsActivityOnModel;
 
 class TemplateDokumen extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivityOnModel; // <-- tambahkan trait
 
     protected $table = 'template_dokumen';
 
