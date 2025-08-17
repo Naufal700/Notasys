@@ -28,4 +28,8 @@ class TemplateDokumen extends Model
     {
         return $this->belongsTo(JenisAkta::class, 'jenis_akta_id');
     }
+    public function subAkta()
+    {
+        return $this->hasMany(JenisAkta::class, 'parent_id');
+    }
 }

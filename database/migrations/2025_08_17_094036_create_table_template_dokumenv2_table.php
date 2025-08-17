@@ -12,12 +12,15 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('nama_template', 255);
             $table->text('deskripsi')->nullable();
-            $table->string('file_path', 255)->nullable(); // Word/PDF path
+            $table->string('file_path', 255)->nullable(); // Path Blade template atau file Word/PDF
+            $table->string('template_type', 50)->nullable(); // ajb, ajp, skm, dll
+            $table->string('paper_size', 10)->default('A4'); // A4, Letter
+            $table->string('orientation', 10)->default('portrait'); // portrait / landscape
             $table->boolean('is_active')->default(true);
             $table->unsignedBigInteger('jenis_akta_id')->nullable();
             $table->foreign('jenis_akta_id')->references('id')->on('jenis_akta')->onDelete('set null');
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

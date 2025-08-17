@@ -17,4 +17,8 @@ class JenisAkta extends Model
     {
         return $this->hasMany(\App\Models\Akta\Akta::class, 'jenis_akta_id');
     }
+    public function subAkta()
+    {
+        return $this->hasMany(JenisAkta::class, 'parent_id');
+    }
 }

@@ -135,8 +135,8 @@
     <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
       <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span> Staff
     </a>
-    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
-      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span> Users
+    <a href="{{ route('pegawai.index') }}" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+      <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span> Pegawai
     </a>
     <a href="{{ route('master.jenis-akta.index') }}" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
       <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span> Jenis Akta
@@ -147,7 +147,7 @@
     <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
       <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span> Supplier
     </a>
-    <a href="{{ route('template_dokumen.index') }}" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+    <a href="{{ route('template.index') }}" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
       <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span> Template Dokumen
     </a>
     <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
@@ -198,7 +198,7 @@
 
   <!-- Submenu -->
   <div x-show="nestedOpen===2 && sidebarOpen" x-collapse class="pl-8 space-y-1 mt-1">
-    <a href="#" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
+    <a href="{{ route('dokumen.index') }}" class="flex items-center py-2 px-4 mx-2 rounded-lg hover:bg-blue-700 transition-all text-blue-200">
       <span class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
       Dokumen Baru
       <span class="ml-auto px-2 py-0.5 bg-blue-600 text-blue-100 text-xs rounded-full">New</span>
